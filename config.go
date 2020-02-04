@@ -29,12 +29,12 @@ func initConfig() (err error) {
 	}
 
 	//define  args
-	tcpArgs := services.TCPArgs{}
+	// tcpArgs := services.TCPArgs{}
 	httpArgs := services.HTTPArgs{}
-	tunnelServerArgs := services.TunnelServerArgs{}
-	tunnelClientArgs := services.TunnelClientArgs{}
-	tunnelBridgeArgs := services.TunnelBridgeArgs{}
-	udpArgs := services.UDPArgs{}
+	// tunnelServerArgs := services.TunnelServerArgs{}
+	// tunnelClientArgs := services.TunnelClientArgs{}
+	// tunnelBridgeArgs := services.TunnelBridgeArgs{}
+	// udpArgs := services.UDPArgs{}
 	socksArgs := services.SocksArgs{}
 	//build srvice args
 	app = kingpin.New("proxy", "happy with proxy")
@@ -75,57 +75,57 @@ func initConfig() (err error) {
 	httpArgs.AuthURLRetry = http.Flag("auth-retry", "access 'auth-url' fail and retry count").Default("1").Int()
 
 	//########tcp#########
-	tcp := app.Command("tcp", "proxy on tcp mode")
-	tcpArgs.Parent = tcp.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
-	tcpArgs.CertFile = tcp.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
-	tcpArgs.KeyFile = tcp.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
-	tcpArgs.Timeout = tcp.Flag("timeout", "tcp timeout milliseconds when connect to real server or parent proxy").Short('e').Default("2000").Int()
-	tcpArgs.ParentType = tcp.Flag("parent-type", "parent protocol type <tls|tcp|kcp|udp>").Short('T').Enum("tls", "tcp", "udp", "kcp")
-	tcpArgs.LocalType = tcp.Flag("local-type", "local protocol type <tls|tcp|kcp>").Default("tcp").Short('t').Enum("tls", "tcp", "kcp")
-	tcpArgs.PoolSize = tcp.Flag("pool-size", "conn pool size , which connect to parent proxy, zero: means turn off pool").Short('L').Default("0").Int()
-	tcpArgs.CheckParentInterval = tcp.Flag("check-parent-interval", "check if proxy is okay every interval seconds,zero: means no check").Short('I').Default("3").Int()
-	tcpArgs.Local = tcp.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
-	tcpArgs.KCPKey = tcp.Flag("kcp-key", "key for kcp encrypt/decrypt data").Short('B').Default("encrypt").String()
-	tcpArgs.KCPMethod = tcp.Flag("kcp-method", "kcp encrypt/decrypt method").Short('M').Default("3des").String()
+	// tcp := app.Command("tcp", "proxy on tcp mode")
+	// tcpArgs.Parent = tcp.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
+	// tcpArgs.CertFile = tcp.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
+	// tcpArgs.KeyFile = tcp.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
+	// tcpArgs.Timeout = tcp.Flag("timeout", "tcp timeout milliseconds when connect to real server or parent proxy").Short('e').Default("2000").Int()
+	// tcpArgs.ParentType = tcp.Flag("parent-type", "parent protocol type <tls|tcp|kcp|udp>").Short('T').Enum("tls", "tcp", "udp", "kcp")
+	// tcpArgs.LocalType = tcp.Flag("local-type", "local protocol type <tls|tcp|kcp>").Default("tcp").Short('t').Enum("tls", "tcp", "kcp")
+	// tcpArgs.PoolSize = tcp.Flag("pool-size", "conn pool size , which connect to parent proxy, zero: means turn off pool").Short('L').Default("0").Int()
+	// tcpArgs.CheckParentInterval = tcp.Flag("check-parent-interval", "check if proxy is okay every interval seconds,zero: means no check").Short('I').Default("3").Int()
+	// tcpArgs.Local = tcp.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
+	// tcpArgs.KCPKey = tcp.Flag("kcp-key", "key for kcp encrypt/decrypt data").Short('B').Default("encrypt").String()
+	// tcpArgs.KCPMethod = tcp.Flag("kcp-method", "kcp encrypt/decrypt method").Short('M').Default("3des").String()
 
 	//########udp#########
-	udp := app.Command("udp", "proxy on udp mode")
-	udpArgs.Parent = udp.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
-	udpArgs.CertFile = udp.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
-	udpArgs.KeyFile = udp.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
-	udpArgs.Timeout = udp.Flag("timeout", "tcp timeout milliseconds when connect to parent proxy").Short('t').Default("2000").Int()
-	udpArgs.ParentType = udp.Flag("parent-type", "parent protocol type <tls|tcp|udp>").Short('T').Enum("tls", "tcp", "udp")
-	udpArgs.PoolSize = udp.Flag("pool-size", "conn pool size , which connect to parent proxy, zero: means turn off pool").Short('L').Default("0").Int()
-	udpArgs.CheckParentInterval = udp.Flag("check-parent-interval", "check if proxy is okay every interval seconds,zero: means no check").Short('I').Default("3").Int()
-	udpArgs.Local = udp.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
+	// udp := app.Command("udp", "proxy on udp mode")
+	// udpArgs.Parent = udp.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
+	// udpArgs.CertFile = udp.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
+	// udpArgs.KeyFile = udp.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
+	// udpArgs.Timeout = udp.Flag("timeout", "tcp timeout milliseconds when connect to parent proxy").Short('t').Default("2000").Int()
+	// udpArgs.ParentType = udp.Flag("parent-type", "parent protocol type <tls|tcp|udp>").Short('T').Enum("tls", "tcp", "udp")
+	// udpArgs.PoolSize = udp.Flag("pool-size", "conn pool size , which connect to parent proxy, zero: means turn off pool").Short('L').Default("0").Int()
+	// udpArgs.CheckParentInterval = udp.Flag("check-parent-interval", "check if proxy is okay every interval seconds,zero: means no check").Short('I').Default("3").Int()
+	// udpArgs.Local = udp.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
 
 	//########tunnel-server#########
-	tunnelServer := app.Command("tserver", "proxy on tunnel server mode")
-	tunnelServerArgs.Parent = tunnelServer.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
-	tunnelServerArgs.CertFile = tunnelServer.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
-	tunnelServerArgs.KeyFile = tunnelServer.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
-	tunnelServerArgs.Timeout = tunnelServer.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
-	tunnelServerArgs.IsUDP = tunnelServer.Flag("udp", "proxy on udp tunnel server mode").Default("false").Bool()
-	tunnelServerArgs.Key = tunnelServer.Flag("k", "client key").Default("default").String()
-	tunnelServerArgs.Route = tunnelServer.Flag("route", "local route to client's network, such as :PROTOCOL://LOCAL_IP:LOCAL_PORT@[CLIENT_KEY]CLIENT_LOCAL_HOST:CLIENT_LOCAL_PORT").Short('r').Default("").Strings()
-	tunnelServerArgs.Mux = tunnelServer.Flag("mux", "use multiplexing mode").Default("false").Bool()
+	// tunnelServer := app.Command("tserver", "proxy on tunnel server mode")
+	// tunnelServerArgs.Parent = tunnelServer.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
+	// tunnelServerArgs.CertFile = tunnelServer.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
+	// tunnelServerArgs.KeyFile = tunnelServer.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
+	// tunnelServerArgs.Timeout = tunnelServer.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
+	// tunnelServerArgs.IsUDP = tunnelServer.Flag("udp", "proxy on udp tunnel server mode").Default("false").Bool()
+	// tunnelServerArgs.Key = tunnelServer.Flag("k", "client key").Default("default").String()
+	// tunnelServerArgs.Route = tunnelServer.Flag("route", "local route to client's network, such as :PROTOCOL://LOCAL_IP:LOCAL_PORT@[CLIENT_KEY]CLIENT_LOCAL_HOST:CLIENT_LOCAL_PORT").Short('r').Default("").Strings()
+	// tunnelServerArgs.Mux = tunnelServer.Flag("mux", "use multiplexing mode").Default("false").Bool()
 
 	//########tunnel-client#########
-	tunnelClient := app.Command("tclient", "proxy on tunnel client mode")
-	tunnelClientArgs.Parent = tunnelClient.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
-	tunnelClientArgs.CertFile = tunnelClient.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
-	tunnelClientArgs.KeyFile = tunnelClient.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
-	tunnelClientArgs.Timeout = tunnelClient.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
-	tunnelClientArgs.Key = tunnelClient.Flag("k", "key same with server").Default("default").String()
-	tunnelClientArgs.Mux = tunnelClient.Flag("mux", "use multiplexing mode").Default("false").Bool()
+	// tunnelClient := app.Command("tclient", "proxy on tunnel client mode")
+	// tunnelClientArgs.Parent = tunnelClient.Flag("parent", "parent address, such as: \"23.32.32.19:28008\"").Default("").Short('P').String()
+	// tunnelClientArgs.CertFile = tunnelClient.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
+	// tunnelClientArgs.KeyFile = tunnelClient.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
+	// tunnelClientArgs.Timeout = tunnelClient.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
+	// tunnelClientArgs.Key = tunnelClient.Flag("k", "key same with server").Default("default").String()
+	// tunnelClientArgs.Mux = tunnelClient.Flag("mux", "use multiplexing mode").Default("false").Bool()
 
 	//########tunnel-bridge#########
-	tunnelBridge := app.Command("tbridge", "proxy on tunnel bridge mode")
-	tunnelBridgeArgs.CertFile = tunnelBridge.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
-	tunnelBridgeArgs.KeyFile = tunnelBridge.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
-	tunnelBridgeArgs.Timeout = tunnelBridge.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
-	tunnelBridgeArgs.Local = tunnelBridge.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
-	tunnelBridgeArgs.Mux = tunnelBridge.Flag("mux", "use multiplexing mode").Default("false").Bool()
+	// tunnelBridge := app.Command("tbridge", "proxy on tunnel bridge mode")
+	// tunnelBridgeArgs.CertFile = tunnelBridge.Flag("cert", "cert file for tls").Short('C').Default("proxy.crt").String()
+	// tunnelBridgeArgs.KeyFile = tunnelBridge.Flag("key", "key file for tls").Short('K').Default("proxy.key").String()
+	// tunnelBridgeArgs.Timeout = tunnelBridge.Flag("timeout", "tcp timeout with milliseconds").Short('t').Default("2000").Int()
+	// tunnelBridgeArgs.Local = tunnelBridge.Flag("local", "local ip:port to listen").Short('p').Default(":33080").String()
+	// tunnelBridgeArgs.Mux = tunnelBridge.Flag("mux", "use multiplexing mode").Default("false").Bool()
 
 	//########ssh#########
 	socks := app.Command("socks", "proxy on ssh mode")
@@ -245,11 +245,11 @@ func initConfig() (err error) {
 	}
 	//regist services and run service
 	services.Regist("http", services.NewHTTP(), httpArgs)
-	services.Regist("tcp", services.NewTCP(), tcpArgs)
-	services.Regist("udp", services.NewUDP(), udpArgs)
-	services.Regist("tserver", services.NewTunnelServerManager(), tunnelServerArgs)
-	services.Regist("tclient", services.NewTunnelClient(), tunnelClientArgs)
-	services.Regist("tbridge", services.NewTunnelBridge(), tunnelBridgeArgs)
+	// services.Regist("tcp", services.NewTCP(), tcpArgs)
+	// services.Regist("udp", services.NewUDP(), udpArgs)
+	// services.Regist("tserver", services.NewTunnelServerManager(), tunnelServerArgs)
+	// services.Regist("tclient", services.NewTunnelClient(), tunnelClientArgs)
+	// services.Regist("tbridge", services.NewTunnelBridge(), tunnelBridgeArgs)
 	services.Regist("socks", services.NewSocks(), socksArgs)
 	service, err = services.Run(serviceName)
 	if err != nil {

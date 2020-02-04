@@ -7,7 +7,7 @@ import (
 	"log"
 	"net"
 	"proxy/utils"
-	"proxy/utils/aes"
+	goaes "proxy/utils/aes"
 	"proxy/utils/socks"
 	"runtime/debug"
 	"strings"
@@ -81,7 +81,7 @@ func (s *Socks) InitService() {
 	if *s.cfg.ParentType == "ssh" {
 		err := s.ConnectSSH()
 		if err != nil {
-			log.Fatalf("init service fail, ERR: %s", err)
+			// log.Fatalf("init service fail, ERR: %s", err)
 		}
 		go func() {
 			//循环检查ssh网络连通性
@@ -93,6 +93,7 @@ func (s *Socks) InitService() {
 				if err != nil {
 					if s.sshClient != nil {
 						s.sshClient.Close()
+						s.sshClient = nil
 					}
 					log.Printf("ssh offline, retrying...")
 					s.ConnectSSH()
@@ -118,6 +119,7 @@ func (s *Socks) InitService() {
 func (s *Socks) StopService() {
 	if s.sshClient != nil {
 		s.sshClient.Close()
+		s.sshClient = nil
 	}
 	if s.udpSC.UDPListener != nil {
 		s.udpSC.UDPListener.Close()
@@ -522,6 +524,7 @@ func (s *Socks) getOutConn(methodBytes, reqBytes []byte, host string) (outConn n
 		case <-time.After(time.Millisecond * time.Duration(*s.cfg.Timeout) * 2):
 			err = fmt.Errorf("ssh dial %s timeout", host)
 			s.sshClient.Close()
+			s.sshClient = nil
 		}
 		if err != nil {
 			log.Printf("connect ssh fail, ERR: %s, retrying...", err)
@@ -555,6 +558,7 @@ func (s *Socks) ConnectSSH() (err error) {
 	}
 	if s.sshClient != nil {
 		s.sshClient.Close()
+		s.sshClient = nil
 	}
 	s.sshClient, err = ssh.Dial("tcp", *s.cfg.Parent, &config)
 	<-s.lockChn

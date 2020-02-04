@@ -5,3 +5,4 @@ proxy
 release-*
 proxy.crt
 proxy.key
+go.sum
